@@ -28,7 +28,7 @@ public class LoraNsCommService {
 	}
 
 	public void sendData(String msg) throws InterruptedException {
-		LOGGER.info("Command send to NS: " + msg);
+		LOGGER.debug("Command send to NS: " + msg);
 		byte[] req = msg.getBytes();
 		ByteBuf clientMessage = Unpooled.buffer(req.length);
 		clientMessage.writeBytes(req);
@@ -36,7 +36,7 @@ public class LoraNsCommService {
 	}
 
 	public void hearbeat() {
-		LOGGER.info("Hearbeat sent");
+		LOGGER.debug("Hearbeat sent");
 		try {
 			sendData(" \n");
 		} catch (InterruptedException e) {

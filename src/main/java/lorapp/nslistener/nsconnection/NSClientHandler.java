@@ -31,7 +31,7 @@ public class NSClientHandler extends ChannelInboundHandlerAdapter {
 
 		buf.readBytes(req);
 		String message = new String(req, "UTF-8");
-		LOGGER.info("Netty-Client:Receive Message," + message);
+		LOGGER.debug("Netty-Client:Receive Message," + message);
 		String[] res = message.split("\n", 3);
 		
 		for (ResponseMSG rMSG : ResponseMSG.values()){
