@@ -31,4 +31,17 @@ public class LoraNsCommService {
 		clientMessage.writeBytes(req);
 		ch.writeAndFlush(clientMessage).sync();
 	}
+	
+	public void hearbeat() {
+		LOGGER.info("Hearbeat sent");
+		if(ch.isWritable()) {
+			try {
+				sendData("\n");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+
 }

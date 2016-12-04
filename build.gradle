@@ -18,6 +18,7 @@ jar {
 	baseName = 'LoraNSListener'
 	version = '0.0.1-SNAPSHOT'
 }
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -32,6 +33,7 @@ dependencies {
 	compile('com.google.code.gson:gson:2.8.0')
 	compile('org.mariadb.jdbc:mariadb-java-client:1.5.2')
 	compile('io.netty:netty-all:4.0.42.Final')
+	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

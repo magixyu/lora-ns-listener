@@ -60,13 +60,8 @@ public class LoraNSListenerApplication {
 		}
 	}
 	
-	@Scheduled(fixedRate = 1000 * 60 * 10, initialDelay=1000 * 60)
+	@Scheduled(fixedRate = 1000 * 60 * 10, initialDelay=1000 * 60 * 10)
 	public void nskeepAlive(){
-		try {
-			loraNSClient.sendData(" \n");
-		} catch (InterruptedException e) {
-			LOGGER.info("Connection exception");
-			e.printStackTrace();
-		}
+		loraNSClient.hearbeat();
 	}
 }
