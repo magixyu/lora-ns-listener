@@ -14,9 +14,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 @Component
 public class TCPConnection {
-	
-	Channel client;
-	
+		
 	@Autowired
 	NSClientHandler nsClientHandler;
 
@@ -35,7 +33,6 @@ public class TCPConnection {
 
 		
 		ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
-		client = channelFuture.channel();
-		return client;
+		return channelFuture.channel();
 	}
 }

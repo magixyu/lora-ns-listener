@@ -1,5 +1,7 @@
 package lorapp.nslistener.nsmsgs.factory.handlers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,9 @@ import lorapp.nslistener.nsmsgs.body.uplink.Upload;
 import lorapp.nslistener.nsmsgs.factory.ResponseBodyFactory;
 import lorapp.nslistener.services.JacksonService;
 
-@Component
+@Component(value="UploadMessgeHandler")
 public class UploadMessgeHandler implements IMessageHandler{
+	private static final Logger LOGGER = LoggerFactory.getLogger(JoinAcceptMessageHandler.class);
 
 	@Autowired
 	JacksonService jacksonService;
@@ -31,6 +34,7 @@ public class UploadMessgeHandler implements IMessageHandler{
 	private String exchange;
 	
 	public UploadMessgeHandler(@Autowired ResponseBodyFactory factory) {
+		LOGGER.info("Register Upload handler");
 		factory.register(ResponseMSG.UPLOAD.getMSG(), this);
 	}
 

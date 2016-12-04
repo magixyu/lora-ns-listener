@@ -33,6 +33,9 @@ public class LoraNSListenerApplication {
 	@Autowired
 	private AppEUIRepo repo;
 
+	@Autowired
+	private JacksonService cmdToStr;
+
 	@Value("${lora.csif-ip}")
 	private String ipAddr;
 	@Value("${lora.csif-port}")
@@ -40,28 +43,31 @@ public class LoraNSListenerApplication {
 	@Value("${lora.csif-transtype}")
 	private String transtype;
 
-	@Autowired
-	private JacksonService cmdToStr;
-
 	public static void main(final String... args) {
 		new SpringApplicationBuilder(LoraNSListenerApplication.class).web(false).run(args);
 		LOGGER.info("LoraNSListenerStarted");
 	}
 
 	@PostConstruct
-	public void startTCPClient() throws InterruptedException, JsonProcessingException {
+	public void connectToNS() throws InterruptedException {
 		LOGGER.info("Start TCP Client on host=" + ipAddr + "\nport=" + port);
 		loraNSClient.startClient(ipAddr, port, transtype);
+
 		for (AppEUI app : repo.findAll()) {
-			String jsonStr = cmdToStr.toJsonString(new Join(app.getAppEUI(), 2, Authentication.generateNonce(),
-					Authentication.generateChallenge()));
-			String cmdStr = new Message(jsonStr).toString();
-			loraNSClient.sendData(cmdStr);
+			String jsonStr;
+			try {
+				jsonStr = cmdToStr.toJsonString(new Join(app.getAppEUI(), 2, Authentication.generateNonce(),
+						Authentication.generateChallenge()));
+				String cmdStr = new Message(jsonStr).toString();
+				loraNSClient.sendData(cmdStr);
+			} catch (JsonProcessingException | InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	
-	@Scheduled(fixedRate = 1000 * 60 * 10, initialDelay=1000 * 60 * 10)
-	public void nskeepAlive(){
+
+	@Scheduled(fixedRate = 1000 * 60 * 10, initialDelay = 1000 * 6)
+	public void nskeepAlive() {
 		loraNSClient.hearbeat();
 	}
 }

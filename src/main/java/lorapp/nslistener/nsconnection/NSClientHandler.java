@@ -36,7 +36,11 @@ public class NSClientHandler extends ChannelInboundHandlerAdapter {
 		
 		for (ResponseMSG rMSG : ResponseMSG.values()){
 			if (message.contains(rMSG.getMSG())) {
-				factory.getHandler(rMSG.getMSG()).handleMessage(res[2]);
+				if (factory.getHandler(rMSG.getMSG()) == null) {
+					LOGGER.error("No Handler defined for "  + rMSG.getMSG());
+				} else {
+					factory.getHandler(rMSG.getMSG()).handleMessage(res[2]);
+				}
 				break;
 			}
 		}
@@ -46,13 +50,14 @@ public class NSClientHandler extends ChannelInboundHandlerAdapter {
 	
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		LOGGER.info("InboundHandler2.channelReadComplete");
+		LOGGER.info("InboundHandler.channelReadComplete");
 		ctx.flush();
 	}
 	
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		LOGGER.info("InboundHandler2.exception");
+		LOGGER.error("InboundHandler.exception" + cause.getMessage());
+		cause.printStackTrace();
 		ctx.close();
 	}
 }
