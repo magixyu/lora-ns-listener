@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import lorapp.nslistener.db.entity.UploadMessage;
-import lorapp.nslistener.db.repo.UploadMessageRepo;
+import lorapp.db.entity.UploadMessage;
+import lorapp.db.repo.UploadMessageRepo;
 import lorapp.nslistener.nsmsgs.ResponseMSG;
 import lorapp.nslistener.nsmsgs.body.uplink.Upload;
 import lorapp.nslistener.nsmsgs.factory.ResponseBodyFactory;

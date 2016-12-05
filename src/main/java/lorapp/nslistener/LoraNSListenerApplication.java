@@ -13,8 +13,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import lorapp.nslistener.db.entity.AppEUI;
-import lorapp.nslistener.db.repo.AppEUIRepo;
+import lorapp.db.entity.AppEUI;
+import lorapp.db.repo.AppEUIRepo;
 import lorapp.nslistener.nsmsgs.Message;
 import lorapp.nslistener.nsmsgs.body.downlink.Join;
 import lorapp.nslistener.nsmsgs.util.Authentication;
