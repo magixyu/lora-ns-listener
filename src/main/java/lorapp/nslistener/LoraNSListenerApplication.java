@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -23,6 +24,7 @@ import lorapp.nslistener.services.LoraNsCommService;
 
 @SpringBootApplication
 @EnableScheduling
+@ComponentScan(basePackages={"lora.db", "lora.nslistener"})
 public class LoraNSListenerApplication {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoraNSListenerApplication.class);
