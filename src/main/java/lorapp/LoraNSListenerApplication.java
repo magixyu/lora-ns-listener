@@ -1,4 +1,4 @@
-package lorapp.nslistener;
+package lorapp;
 
 import javax.annotation.PostConstruct;
 
