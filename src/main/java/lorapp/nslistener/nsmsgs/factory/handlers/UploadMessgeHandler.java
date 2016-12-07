@@ -30,7 +30,7 @@ public class UploadMessgeHandler implements IMessageHandler{
 	@Autowired
 	UploadMessageRepo umRepo;
 	
-	@Value("${lora.rabbitmq.exchange}")
+	@Value("${lora.rawdata.exchange}")
 	private String exchange;
 	
 	public UploadMessgeHandler(@Autowired ResponseBodyFactory factory) {
@@ -45,8 +45,7 @@ public class UploadMessgeHandler implements IMessageHandler{
 		umRepo.save(upMsg);
 		try {
 			rabbitTemplate.convertAndSend(exchange, um.getAppEUI()+"." + um.getDevEUI(), jacksonService.toJsonString(upMsg));
-		} catch (AmqpException | JsonProcessingException e) {
-			// TODO Auto-generated catch block
+		} catch (AmqpException|JsonProcessingException e) {
 			e.printStackTrace();
 		}
 	}

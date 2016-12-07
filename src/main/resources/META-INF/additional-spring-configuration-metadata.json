@@ -18,5 +18,10 @@
     "name": "lora.rabbitmq.exchange",
     "type": "java.lang.String",
     "description": "A description for 'lora.rabbitmq.exchange'"
+  },
+  {
+    "name": "lora.rawdata.exchange",
+    "type": "java.lang.String",
+    "description": "A description for 'lora.rawdata.exchange'"
   }
 ]}
