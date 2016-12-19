@@ -40,13 +40,13 @@ public class UploadMessgeHandler implements IMessageHandler{
 
 	@Override
 	public void handleMessage(String message) {
-		Upload um = jacksonService.toObject(message, Upload.class);
-		UploadMessage upMsg = new UploadMessage(um.getAppEUI(), um.getDevEUI(), um.getPayload());
-		umRepo.save(upMsg);
 		try {
+			Upload um = jacksonService.toObject(message, Upload.class);
+			UploadMessage upMsg = new UploadMessage(um.getAppEUI(), um.getDevEUI(), um.getPayload());
+			umRepo.save(upMsg);
 			rabbitTemplate.convertAndSend(exchange, um.getAppEUI()+"." + um.getDevEUI(), jacksonService.toJsonString(upMsg));
-		} catch (AmqpException|JsonProcessingException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 		}
 	}
 }
