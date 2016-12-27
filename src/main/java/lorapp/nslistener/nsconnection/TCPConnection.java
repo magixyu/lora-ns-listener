@@ -22,9 +22,10 @@ public class TCPConnection {
 		EventLoopGroup group = new NioEventLoopGroup();
 		Bootstrap bootstrap = new Bootstrap();
 		
-		bootstrap.group(group).channel(NioSocketChannel.class).option(ChannelOption.TCP_NODELAY, true)
+		bootstrap.group(group).channel(NioSocketChannel.class)
+		.option(ChannelOption.TCP_NODELAY, true)
+		.option(ChannelOption.SO_KEEPALIVE, true)
 				.handler(new ChannelInitializer<Channel>() {
-
 					@Override
 					protected void initChannel(Channel ch) throws Exception {
 						ch.pipeline().addLast(nsClientHandler);
@@ -33,6 +34,7 @@ public class TCPConnection {
 
 		
 		ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
-		return channelFuture.channel();
+		Channel channel = channelFuture.channel();
+		return channel;
 	}
 }
